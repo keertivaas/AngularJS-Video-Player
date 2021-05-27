@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+    <h1 align = "center" ><u>Video Player</u></h1>
+<div align="center" ng-app="myApp" ng-controller="myCtrl">
+    <br><br>
+<video id="myVideo">
+  <source id="mp4_src" src="videoplayback.mp4" type="video/mp4">
+  <source id="ogg_src"  src="videoplayback.ogg" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
+<br><br>
+<button ng-click="playVid()" type="button"><img src="play.jpg" width="50px" height="50px"></button>
+<button ng-click="pauseVid()" type="button"><img src="pause.jpg" width="50px" height="50px"></button> 
+<button ng-click="rewindVid(5)" type="button"><img src="rewind.jpg" width="50px" height="50px"></button> 
+<button ng-click="StopVid()" type="button"><img src="stop.jpg" width="50px" height="50px"></button> 
+<button ng-click="forwardVid(5)" type="button"><img src="forward.jpg" width="50px" height="50px"></button> 
+
+<form>
+<label for="speed" >Speed:</label>
+  <select name="speed" id="speed" ng-model="speed">
+
+    <option value="1.0">1x</option>
+    <option value="1.25">1.25x</option>
+    <option value="1.50">1.5x</option>
+    <option value="2.0">2.0x</option>
+    <option value="3.0">3.0x</option>
+</select>
+<button type="button" ng-click="changeSpd(speed)">Change Speed</button>
+</form>
+</div>
+
+<style>
+  body{
+    background-color: lightgrey;
+    font-family: "Lucida Console";
+}
+</style>
+<script>
+var x = document.getElementById("myVideo"); 
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', function ($scope) {
+
+$scope.playVid = function(){
+    x.play(); 
+}
+
+$scope.pauseVid = function(){
+    x.pause(); 
+}
+
+$scope.rewindVid = function(bbb){
+    x.pause();
+    x.currentTime-=bbb;
+    x.play();
+}
+
+$scope.forwardVid = function(bbb){
+    x.pause();
+    x.currentTime+=bbb;
+    x.play();
+}
+
+$scope.StopVid = function(){
+    x.pause();
+    x.currentTime = 0;
+    x.load();
+}
+
+$scope.changeSpd = function(bbb)
+{
+    // x.pause();
+    console.log(bbb);
+    x.playbackRate = parseFloat(bbb);
+    // x.play();
+}
+
+});
+
+</script>
+
+
+</body>
+</html>
